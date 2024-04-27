@@ -1,9 +1,12 @@
+//Description: This file contains the javascript code for the album search and favorites functionality.
 document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     activateSearchTab();
     fetchAndDisplayAlbums();
-});
+}
+);
 
+// Function to setup event listeners for the search form and tab buttons
 function setupEventListeners() {
     const searchForm = document.getElementById('search-form');
     searchForm.addEventListener('submit', function(event) {
@@ -16,6 +19,7 @@ function setupEventListeners() {
     document.getElementById('favorites-button').addEventListener('click', activateFavoritesTab);
 }
 
+// Function to activate the search tab and deactivate the favorites tab
 function activateSearchTab() {
     document.getElementById('search-button').classList.add('active');
     document.getElementById('favorites-button').classList.remove('active');
@@ -23,6 +27,7 @@ function activateSearchTab() {
     document.getElementById('favorites-tab').classList.add('d-none');
 }
 
+// Function to activate the favorites tab and deactivate the search tab
 function activateFavoritesTab() {
     document.getElementById('search-button').classList.remove('active');
     document.getElementById('favorites-button').classList.add('active');
@@ -31,6 +36,7 @@ function activateFavoritesTab() {
     fetchFavorites();
 }
 
+// Function to fetch albums from the API
 async function fetchAlbums() {
     try {
         const response = await fetch('https://661c4d0fe7b95ad7fa6a1bf6.mockapi.io/api/config/albums');
@@ -45,6 +51,7 @@ async function fetchAlbums() {
     }
 }
 
+// Function to fetch favorites from the API
 async function fetchFavorites() {
     try {
         const response = await fetch('https://661c4d0fe7b95ad7fa6a1bf6.mockapi.io/api/config/favorites');
@@ -59,6 +66,7 @@ async function fetchFavorites() {
     }
 }
 
+// Function to fetch and display albums based on the search query
 async function fetchAndDisplayAlbums(query) {
     const albums = await fetchAlbums();
     const filteredAlbums = query ? albums.filter(album =>
@@ -68,6 +76,7 @@ async function fetchAndDisplayAlbums(query) {
     displayAlbums(filteredAlbums, document.getElementById('search-results'), false);
 }
 
+// Function to display albums in the list
 function displayAlbums(albums, listElement, isFavorite) {
     listElement.innerHTML = '';
     if (albums.length === 0) {
@@ -89,15 +98,17 @@ function displayAlbums(albums, listElement, isFavorite) {
         const btn = listItem.querySelector('button');
         btn.addEventListener('click', () => {
             if (isFavorite) {
-                removeFromFavorites(album);
+                removeFromFavorites(album, listItem);  // Now passing the listItem for direct DOM manipulation
             } else {
                 addToFavorites(album);
             }
         });
         listElement.appendChild(listItem);
-    });
+    }
+);
 }
 
+// Function to add an album to favorites
 async function addToFavorites(album) {
     try {
         const response = await fetch('https://661c4d0fe7b95ad7fa6a1bf6.mockapi.io/api/config/favorites');
@@ -126,6 +137,7 @@ async function addToFavorites(album) {
     }
 }
 
+// Function to remove an album from favorites
 async function removeFromFavorites(album, listItem) {
     try {
         const response = await fetch(`https://661c4d0fe7b95ad7fa6a1bf6.mockapi.io/api/config/favorites/${album.id}`, {
@@ -143,7 +155,7 @@ async function removeFromFavorites(album, listItem) {
     }
 }
 
-
+// Function to display a message in the message area
 function displayMessage(message, type) {
     const messageElement = document.getElementById('message-area');
     messageElement.textContent = message;
