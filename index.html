@@ -81,24 +81,23 @@
 		</header>
 		<main class="pt-3 mx-auto">
 			<div class="container">
+
 				<!-- TAB NAVIGATION -->
-				<ul id="tab-navigation" class="nav nav-tabs">
-					<li class="nav-item">
-						<button
-							id="search-button"
-							type="button"
-							data-tab="search"
-							class="nav-link active"
-							aria-current="page">
-							Search Albums
-						</button>
-					</li>
-					<li class="nav-item">
-						<button id="favorites-button" type="button" data-tab="favorites" class="nav-link">
-							Favorite Albums
-						</button>
-					</li>
-				</ul>
+				<nav aria-label="Album Tabs">
+					<ul id="tab-navigation" class="nav nav-tabs">
+						<li class="nav-item">
+							<button id="search-button" type="button" data-tab="search" class="nav-link active" aria-current="page">
+								Search Albums
+							</button>
+						</li>
+						<li class="nav-item">
+							<button id="favorites-button" type="button" data-tab="favorites" class="nav-link">
+								Favorite Albums
+							</button>
+						</li>
+					</ul>
+				</nav>
+
 				<!-- SEARCH ALBUMS TAB -->
 				<div id="search-tab" class="container album py-5 bg-body-tertiary">
 					<h5 class="text-dark">Search Library</h5>
@@ -122,6 +121,7 @@
 					<!-- SEARCH  TAB  -->
 					<div id="search-tab" class="col-lg-9 mb-1">
 						<h2 class="text-dark">Results</h2>
+						<div id="message-area" style="display: none;"></div>
 						<ul id="search-results" class="list-group">
 							<!-- <li class="list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-2 me-auto">
